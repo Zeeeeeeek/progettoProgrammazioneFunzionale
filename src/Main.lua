@@ -2,26 +2,25 @@ N = 10
 D = {
     S = { { 2, 4, 0, 0, 0, 0 }, { 3, 8, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 9, 6, 0, 0, 0, 0 } },
     U = { { 2, 4 }, { 1, 1 } },
-    C = { { 5, 1 }, { 9, 9 } },
+    C = { { 3, 8 } },
     G = { { 4, 3 } },
     R = { { 8, 7 }, { 6, 1 }, { 4, 5 } }
 }
 require("Lists")
 function gong(config)
-    local newConfig = cloneList(config)
-    collectObjects(newConfig)
-    return newConfig
+    return collectObjects(config)
 end
 
 function collectObjects(config)
-    for i, senpai in ipairs(config["S"]) do
-        local objectIndex, objectType = findObjectInSameCell(senpai, config)
+    local newConfig = cloneList(config)
+    for i, senpai in ipairs(newConfig["S"]) do
+        local objectIndex, objectType = findObjectInSameCell(senpai, newConfig)
         if objectType ~= "N" then
-            table.remove(config[objectType], objectIndex)
-            config["S"][i] = incrementSenpaiStat(senpai, objectType)
-            print(table.unpack(config["S"][i]))
+            table.remove(newConfig[objectType], objectIndex)
+            newConfig["S"][i] = incrementSenpaiStat(senpai, objectType)
         end
     end
+    return newConfig
 end
 
 function incrementSenpaiStat(senpai, objectType)
@@ -53,4 +52,21 @@ function sameCell(senpai, object)
     return senpai[1] == object[1] and senpai[2] == object[2]
 end
 
-gong(D)
+function printConfig(config)
+    local keys = {"S", "U", "C", "G", "R"}
+
+    for _, key in ipairs(keys) do
+        io.write(key .. " = { ")
+        for _, value in ipairs(config[key]) do
+            io.write("{ ")
+            for i, v in ipairs(value) do
+                io.write(v .. (i < #value and ", " or ""))
+            end
+            io.write(" }")
+        end
+        io.write(" }\n")
+    end
+end
+printConfig(D)
+print("-----")
+printConfig(gong(D))
