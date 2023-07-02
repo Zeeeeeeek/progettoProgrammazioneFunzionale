@@ -51,3 +51,14 @@ end
 function findIndex(tbl, elem)
     return findIndexThatSatisfies(tbl, function (x) return x == elem end)
 end
+
+function listOfAllObjectsPositions(config)
+    local list = {}
+    local objectsKeys = {"U", "C", "G", "R"}
+    for _, key in ipairs(objectsKeys) do
+        for _, object in ipairs(config[key]) do
+            table.insert(list, object)
+        end
+    end
+    return list
+end
