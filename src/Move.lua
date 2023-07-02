@@ -23,8 +23,7 @@ function move(config, N, senpaiIndex)
         local destination = extractClosestObject(objectAndDistances)[1]
         --io.write("{ " .. destination[1] .. " " .. destination[2] .. " } ")
         newConfig["S"] = moveSenpaiTo(newConfig["S"], destination, senpaiIndex)
-        io.write("New config:\n")
-        printConfig(newConfig)
+        return move(newConfig, N, senpaiIndex + 1)
     else
         --We try to move Senpais to their closest Senpai
         --Temporarily we return the same config
@@ -61,7 +60,6 @@ function moveSenpaiTo(senpais, destination, senpaiIndex)
         end
     end
     --We now check if the new position is occupied by another senpai
-    io.write("New position: " .. newX .. " " .. newY .. "\n")
     newSenpais[senpaiIndex] = { newX, newY, senpaiToMove[3], senpaiToMove[4], senpaiToMove[5], senpaiToMove[6] }
     return newSenpais
 end

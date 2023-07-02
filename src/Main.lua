@@ -6,7 +6,7 @@ D = {
     G = { { 4, 3 } },
     R = { { 8, 7 }, { 6, 1 }, { 4, 5 } }
 }
-Z = {
+NoObjects = {
     S = { { 8, 4, 0, 0, 0, 0 }, { 3, 4, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 3, 2, 0, 0, 0, 0 } },
     U = { },
     C = { },
@@ -16,10 +16,27 @@ Z = {
 require("Lists")
 require("Fight")
 require("Move")
+
+function play(config)
+    print("Config number: " .. index)
+    index = index + 1
+    printConfig(config)
+    print("--------------------------------------------------\n")
+    if isFinalConfig(config) then
+        return config
+    else
+        return play(gong(config))
+    end
+end
+
+function isFinalConfig(config)
+    return #config["S"] == 1 and not objectsArePresents(config)
+end
+
 function gong(config)
     local newConfig = collectObjects(config)
     newConfig["S"] = evalFights(newConfig["S"])
-    return newConfig
+    return move(newConfig, N, 1)
 end
 
 function collectObjects(config)
@@ -78,9 +95,7 @@ function printConfig(config)
         io.write(" }\n")
     end
 end
+index = 0
 
---cong = gong(D)
+play(D)
 
---printConfig(cong)
-
-move(D, N, 1)
