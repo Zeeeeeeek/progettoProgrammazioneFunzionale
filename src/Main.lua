@@ -17,15 +17,14 @@ require("Lists")
 require("Fight")
 require("Move")
 
-function play(config)
+function play(config, index)
     print("Config number: " .. index)
-    index = index + 1
     printConfig(config)
     print("--------------------------------------------------\n")
     if isFinalConfig(config) then
         return config
     else
-        return play(gong(config))
+        return play(gong(config), index + 1)
     end
 end
 
@@ -95,7 +94,6 @@ function printConfig(config)
         io.write(" }\n")
     end
 end
-index = 0
 
-play(D)
+play(D, 0)
 
