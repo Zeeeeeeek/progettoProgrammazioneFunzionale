@@ -38,3 +38,16 @@ function cloneList(list)
     end
     return clonedList
 end
+---Trovare l'indice del primo elemento che soddisfa la funzione, -1 altrimenti
+function findIndexThatSatisfies(tbl, func)
+    for i, v in ipairs(tbl) do
+        if func(v) then
+            return i
+        end
+    end
+    return -1
+end
+
+function findIndex(tbl, elem)
+    return findIndexThatSatisfies(tbl, function (x) return x == elem end)
+end

@@ -1,14 +1,17 @@
 N = 10
 D = {
-    S = { { 2, 4, 0, 0, 0, 0 }, { 3, 8, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 9, 6, 0, 0, 0, 0 } },
-    U = { { 2, 4 }, { 1, 1 } },
+    S = { { 8, 4, 0, 0, 0, 0 }, { 3, 4, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 3, 2, 0, 0, 0, 0 } },
+    U = { { 8, 4 }, { 1, 1 } },
     C = { { 3, 8 } },
     G = { { 4, 3 } },
     R = { { 8, 7 }, { 6, 1 }, { 4, 5 } }
 }
 require("Lists")
+require("Fight")
 function gong(config)
-    return collectObjects(config)
+    local newConfig = collectObjects(config)
+    newConfig["S"] = evalFights(newConfig["S"])
+    return newConfig
 end
 
 function collectObjects(config)
@@ -67,6 +70,7 @@ function printConfig(config)
         io.write(" }\n")
     end
 end
-printConfig(D)
-print("-----")
-printConfig(gong(D))
+
+cong = gong(D)
+
+printConfig(cong)
