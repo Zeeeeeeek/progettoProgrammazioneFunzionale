@@ -13,6 +13,14 @@ NoObjects = {
     G = { },
     R = { }
 }
+OneObject = {
+    S = { { 8, 4, 0, 0, 0, 0 }, { 3, 4, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 3, 2, 0, 0, 0, 0 } },
+    U = { },
+    C = { },
+    G = { { 3, 8 } },
+    R = { }
+}
+
 require("Lists")
 require("Fight")
 require("Move")
@@ -95,5 +103,5 @@ function printConfig(config)
     end
 end
 
-play(D, 0)
+play(OneObject, 0)
 
