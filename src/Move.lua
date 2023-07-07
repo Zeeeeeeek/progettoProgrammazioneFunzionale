@@ -1,28 +1,24 @@
 function move(config)
     local newConfig = cloneList(config)
     for senpaiIndex, senpai in ipairs(newConfig["S"]) do
+        local objectives = {}
         if objectsArePresents(newConfig) then
-            --Objects are presents, we try to move Senpais to their closest object
-            local objectAndDistances = map(
-                    function(object)
-                        return { object, distanceFrom(senpai, object) }
-                    end, listOfAllObjectsPositions(newConfig)
-            )
-            local destination = extractMin(objectAndDistances)[1]
-            newConfig["S"] = moveSenpaiTo(newConfig["S"], destination, senpaiIndex)
+            --There are objects left, we try to move Senpais to their closest object
+            objectives = listOfAllObjectsPositions(newConfig)
         else
             --There are no objects left, we try to move Senpais to their closest Senpai
             if #newConfig["S"] == 1 then
                 return newConfig --There is only one Senpai left, it's the final config
             end
-            local senpaisAndDistances = map(
-                    function(senpai)
-                        return { senpai, distanceFrom(senpai, senpai) }
-                    end, senpaisListWithoutSenpai(newConfig["S"], senpaiIndex)
-            )
-            local destination = extractMin(senpaisAndDistances)[1]
-            newConfig["S"] = moveSenpaiTo(newConfig["S"], destination, senpaiIndex)
+            objectives = senpaisListWithoutSenpai(newConfig["S"], senpaiIndex)
         end
+        objectivesAndDistances = map(
+                function(objective)
+                    return { objective, distanceFrom(senpai, objective) }
+                end, objectives
+        )
+        local destination = extractMin(objectivesAndDistances)[1]
+        newConfig["S"] = moveSenpaiTo(newConfig["S"], destination, senpaiIndex)
     end
     return newConfig
 end
