@@ -28,12 +28,8 @@ require("Objects")
 
 function play(config)
     printConfig(config)
-    print("--------------------------------------------------\n")
-    if isFinalConfig(config) then
-        return config
-    else
-        return play(gong(config))
-    end
+    print("--------------------------------------------------")
+    return isFinalConfig(config) and config or play(gong(config))
 end
 
 function isFinalConfig(config)
