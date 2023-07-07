@@ -1,15 +1,3 @@
-function dmove(config)
-    local currentObjectsPositions = listOfAllObjectsPositions(config)
-    for _, senpai in pairs(config["S"]) do
-        local t = map(function(object)
-            return { object, distanceFrom(senpai, object) }
-        end, currentObjectsPositions)
-        local a = extractMin(t)[1]
-        io.write("{ " .. a[1] .. " " .. a[2] .. " } ")
-        --io.write(a[2] .. " ")
-    end
-end
-
 function move(config, N, senpaiIndex)
     local newConfig = cloneList(config)
     if (#config["S"] < senpaiIndex) then
@@ -58,7 +46,7 @@ function objectsArePresents(config)
     return false
 end
 
---Returns new Senpais
+
 function moveSenpaiTo(senpais, destination, senpaiIndex)
     local newSenpais = cloneList(senpais)
     local senpaiToMove = newSenpais[senpaiIndex]
