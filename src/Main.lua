@@ -42,7 +42,7 @@ end
 function gong(config)
     local newConfig = collectObjects(config)
     newConfig["S"] = evalFights(newConfig["S"])
-    return move(newConfig, N, 1)
+    return move(newConfig)
 end
 
 function printConfig(config)
@@ -60,5 +60,4 @@ function printConfig(config)
     end
 end
 
-play(OneObject)
-
+play(D)

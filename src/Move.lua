@@ -1,31 +1,28 @@
-function move(config, N, senpaiIndex)
+function move(config)
     local newConfig = cloneList(config)
-    if (#config["S"] < senpaiIndex) then
-        return newConfig
-    end
-    if objectsArePresents(newConfig) then
-        --We try to move Senpais to their closest object
-        local objectAndDistances = map(function(object)
-            return { object, distanceFrom(newConfig["S"][senpaiIndex], object) }
-        end, listOfAllObjectsPositions(newConfig))
-        local destination = extractMin(objectAndDistances)[1]
-        --io.write("{ " .. destination[1] .. " " .. destination[2] .. " } ")
-        newConfig["S"] = moveSenpaiTo(newConfig["S"], destination, senpaiIndex)
-        return move(newConfig, N, senpaiIndex + 1)
-    else
-        --We try to move Senpais to their closest Senpai
-        --Temporarily we return the same config
-        if #newConfig["S"] == 1 then
-            return newConfig
+    for senpaiIndex, senpai in ipairs(newConfig["S"]) do
+        if objectsArePresents(newConfig) then
+            --Objects are presents, we try to move Senpais to their closest object
+            local objectAndDistances = map(
+                    function(object)
+                        return { object, distanceFrom(senpai, object) }
+                    end, listOfAllObjectsPositions(newConfig)
+            )
+            local destination = extractMin(objectAndDistances)[1]
+            newConfig["S"] = moveSenpaiTo(newConfig["S"], destination, senpaiIndex)
+        else
+            --There are no objects left, we try to move Senpais to their closest Senpai
+            if #newConfig["S"] == 1 then
+                return newConfig --There is only one Senpai left, it's the final config
+            end
+            local senpaisAndDistances = map(
+                    function(senpai)
+                        return { senpai, distanceFrom(senpai, senpai) }
+                    end, senpaisListWithoutSenpai(newConfig["S"], senpaiIndex)
+            )
+            local destination = extractMin(senpaisAndDistances)[1]
+            newConfig["S"] = moveSenpaiTo(newConfig["S"], destination, senpaiIndex)
         end
-        print("Move Senpai to Senpai")
-        local senpaisAndDistances = map(
-                function(senpai)
-                        return { senpai, distanceFrom(newConfig["S"][senpaiIndex], senpai) }
-        end, senpaisListWithoutSenpai(newConfig["S"], senpaiIndex))
-        local destination = extractMin(senpaisAndDistances)[1]
-        newConfig["S"] = moveSenpaiTo(newConfig["S"], destination, senpaiIndex)
-        return move(newConfig, N, senpaiIndex + 1)
     end
     return newConfig
 end
@@ -37,15 +34,8 @@ function senpaisListWithoutSenpai(senpais, senpaiIndex)
 end
 
 function objectsArePresents(config)
-    local objectTypes = { "U", "C", "G", "R" }
-    for _, objectType in ipairs(objectTypes) do
-        if #config[objectType] > 0 then
-            return true
-        end
-    end
-    return false
+    return #config["U"] + #config["C"] + #config["G"] + #config["R"] > 0
 end
-
 
 function moveSenpaiTo(senpais, destination, senpaiIndex)
     local newSenpais = cloneList(senpais)
@@ -58,7 +48,8 @@ function moveSenpaiTo(senpais, destination, senpaiIndex)
         if destination[2] ~= senpaiToMove[2] then
             newX = senpaiToMove[1]
             newY = destination[2] > senpaiToMove[2] and senpaiToMove[2] + 1 or senpaiToMove[2] - 1
-        else --The senpai is already in the same cell of the object
+        else
+            --The senpai is already in the same cell of the object
             return newSenpais
         end
     end
@@ -68,15 +59,6 @@ end
 
 function distanceFrom(from, to)
     return math.abs(from[1] - to[1]) + math.abs(from[2] - to[2])
-end
-
-function printObjectAndDistance(t)
-    for _, v in ipairs(t) do
-        --print v type
-        io.write("{ " .. v[1][1] .. " " .. v[1][2] .. " } ")
-        io.write(v[2] .. " ")
-    end
-    io.write("\n")
 end
 
 function extractMin(t)
