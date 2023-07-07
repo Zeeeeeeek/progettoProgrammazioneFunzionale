@@ -1,3 +1,6 @@
+----Collects all objects in the same cell as a senpai and increments the senpai's corresponding stat.
+----This function assumes that there is only one object in the same cell.
+----Returns a new config with the collected objects removed and the senpais' stat incremented.
 function collectObjects(config)
     local newConfig = cloneList(config)
     for i, senpai in ipairs(newConfig["S"]) do
@@ -10,6 +13,8 @@ function collectObjects(config)
     return newConfig
 end
 
+----Increments the senpai's stat corresponding to the specified object type.
+----Returns a new senpai with the stat incremented, or the same senpai if the object type is not valid.
 function incrementSenpaiStat(senpai, objectType)
     local newSenpai = cloneList(senpai)
     local objectTypes = { "U", "C", "G", "R" }
@@ -21,7 +26,8 @@ function incrementSenpaiStat(senpai, objectType)
     return newSenpai
 end
 
---Questa funzione assume che ci sia un solo oggetto nella stessa cella
+----Returns the index and the type of the first object found in the same cell as the senpai.
+----Returns -1 and "N" if no object is found.
 function findObjectInSameCell(senpai, config)
     local objectTypes = { "U", "C", "G", "R" }
     for _, objectType in ipairs(objectTypes) do
@@ -32,9 +38,10 @@ function findObjectInSameCell(senpai, config)
             end
         end
     end
-    return -1, "N" --N sta per nessuno, non c'è nessun oggetto nella stessa cella del senpai
+    return -1, "N"
 end
 
+----Returns true if the senpai and the object are in the same cell.
 function sameCell(senpai, object)
     return senpai[1] == object[1] and senpai[2] == object[2]
 end
