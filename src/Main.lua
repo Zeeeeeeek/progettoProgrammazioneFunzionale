@@ -26,14 +26,13 @@ require("Fight")
 require("Move")
 require("Objects")
 
-function play(config, index)
-    print("Config number: " .. index)
+function play(config)
     printConfig(config)
     print("--------------------------------------------------\n")
     if isFinalConfig(config) then
         return config
     else
-        return play(gong(config), index + 1)
+        return play(gong(config))
     end
 end
 
