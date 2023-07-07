@@ -26,16 +26,19 @@ require("Fight")
 require("Move")
 require("Objects")
 
+----Play the game until the config is final.
 function play(config)
     printConfig(config)
     print("--------------------------------------------------")
     return isFinalConfig(config) and config or play(gong(config))
 end
 
+----A config is final if there is only one Senpai left and there are no objects left.
 function isFinalConfig(config)
     return #config["S"] == 1 and not objectsArePresents(config)
 end
 
+----Move the game forward by one round by collecting objects, resolving fights and moving Senpais.
 function gong(config)
     local newConfig = collectObjects(config)
     newConfig["S"] = evalFights(newConfig["S"])
