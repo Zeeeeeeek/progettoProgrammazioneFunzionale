@@ -61,5 +61,5 @@ function printConfig(config)
     end
 end
 
-play(OneObject, 0)
+play(OneObject)
 
