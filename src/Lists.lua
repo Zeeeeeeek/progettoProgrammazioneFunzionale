@@ -1,6 +1,6 @@
 function filter (tbl, func)
     local r = {}
-    for i, v in ipairs(tbl) do
+    for _, v in ipairs(tbl) do
         if func(tbl[v]) then
             table.insert(r, v)
         end
@@ -16,7 +16,6 @@ function map (func, tbl)
     return newtbl
 end
 
--- func è una funzione binaria
 function reduce (func, c, tbl)
     if #tbl == 0 then
         return c
@@ -25,33 +24,35 @@ function reduce (func, c, tbl)
     end
 end
 
+----Clone the given list and all its sublists
 function cloneList(list)
     local clonedList = {}
     for k, item in pairs(list) do
         if type(item) == "table" then
-            -- Clonare la lista ricorsivamente se l'elemento è una tabella
             clonedList[k] = cloneList(item)
         else
-            -- Copiare direttamente l'elemento se non è una tabella
             clonedList[k] = item
         end
     end
     return clonedList
 end
----Trovare l'indice del primo elemento che soddisfa la funzione, -1 altrimenti
-function findIndexThatSatisfies(tbl, func)
+
+----Returns the index of the first element of the list that satisfies the predicate, -1 otherwise.
+function findIndexThatSatisfies(tbl, predicate)
     for i, v in ipairs(tbl) do
-        if func(v) then
+        if predicate(v) then
             return i
         end
     end
     return -1
 end
 
+----Returns the index of the first element of the list that is equal to the given element, -1 otherwise.
 function findIndex(tbl, elem)
     return findIndexThatSatisfies(tbl, function (x) return x == elem end)
 end
 
+----Returns a list containing all the objects in the given config.
 function listOfAllObjectsPositions(config)
     local list = {}
     local objectsKeys = {"U", "C", "G", "R"}
