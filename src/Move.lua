@@ -39,11 +39,17 @@ function objectsArePresents(config)
 end
 
 ----Moves the Senpai at the given index to the given destination.
+----If the destination is occupied by another Senpai, the Senpai will not move.
+----Returns a new list of Senpais with the Senpai at the given index moved to the given destination, if possible.
 function moveSenpaiTo(senpais, destination, senpaiIndex)
     local newSenpais = cloneList(senpais)
     local senpaiToMove = newSenpais[senpaiIndex]
     if senpaiToMove[1] == destination[1] and senpaiToMove[2] == destination[2] then
         return newSenpais
+    end
+    --We shall now check if the destination cell is already occupied by another Senpai
+    if isOccupiedBySenpai(newSenpais, destination) then
+        return newSenpais --We do not move the senpai if the destination cell is occupied by another Senpai
     end
     local newX, newY
     if destination[1] ~= senpaiToMove[1] then
@@ -57,6 +63,13 @@ function moveSenpaiTo(senpais, destination, senpaiIndex)
     end
     newSenpais[senpaiIndex] = { newX, newY, senpaiToMove[3], senpaiToMove[4], senpaiToMove[5], senpaiToMove[6] }
     return newSenpais
+end
+
+----Returns true if the destination is occupied by a Senpai, false otherwise.
+function isOccupiedBySenpai(senpais, destination)
+    return findIndexThatSatisfies(senpais, function(senpai)
+        return senpai[1] == destination[1] and senpai[2] == destination[2]
+    end) ~= -1
 end
 
 ----Returns the distance between the two given positions.
