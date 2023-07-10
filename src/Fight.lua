@@ -49,14 +49,14 @@ function getSenpaiStats(senpai)
     return senpai[3] + senpai[4] + senpai[5] + senpai[6]
 end
 
-----Returns the Senpai with the highest withdraw value.
+----Resolves fight in a withdraw condition
 function handleWithdraw(firstSenpai, secondSenpai)
     return withdraw(firstSenpai) > withdraw(secondSenpai) and secondSenpai or firstSenpai
 end
 
 ----Withdraw formula.
 function withdraw(senpai)
-    return (((senpai[1]+senpai[2]) * (senpai[1] + senpai[2] -1) ) / 2) + senpai[1] - senpai[2]
+    return (((senpai[1] + senpai[2]) * (senpai[1] + senpai[2] - 1)) / 2) + senpai[1] - senpai[2]
 end
 
 ----Returns the first Senpai that is close to the given Senpai. Returns an empty list if there is no close Senpai.
