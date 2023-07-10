@@ -61,6 +61,7 @@ function moveSenpaiTo(senpais, destination, senpaiIndex)
             newY = destination[2] > senpaiToMove[2] and senpaiToMove[2] + 1 or senpaiToMove[2] - 1
         end
     end
+    logMove(senpaiToMove, newX, newY)
     newSenpais[senpaiIndex] = { newX, newY, senpaiToMove[3], senpaiToMove[4], senpaiToMove[5], senpaiToMove[6] }
     return newSenpais
 end
@@ -83,4 +84,8 @@ function extractMin(t)
     return reduce(function(x, y)
         return x[2] < y[2] and x or y
     end, t[1], t)
+end
+
+function logMove(senpai, x, y)
+    print("Senpai at {" .. senpai[1] .. ", " .. senpai[2] .. "} moved to: {" .. x .. ", " .. y .. "}")
 end
