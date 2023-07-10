@@ -8,7 +8,7 @@ function evalFights(senpais)
             local looser = fight(senpai, closeSenpai)
             local winner = looser == senpai and closeSenpai or senpai
             logFight(winner, looser)
-            --Remove both senpais todo: check findIndex
+            --Remove both senpais todo: check findIndex, should be handled when returning -1
             table.remove(newSenpais, findIndex(newSenpais, looser))
             table.remove(newSenpais, i)
             --Add only the winner with the incremented stat
