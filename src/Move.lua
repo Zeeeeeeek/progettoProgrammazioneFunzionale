@@ -20,7 +20,7 @@ function move(config)
                     return { objective, distanceFrom(senpai, objective) }
                 end, objectives
         )
-        local destination = extractMin(objectivesAndDistances)[1]
+        local destination = extractMin(objectivesAndDistances)
         newConfig["S"] = moveSenpaiTo(newConfig["S"], destination, senpaiIndex)
     end
     return newConfig
@@ -83,7 +83,7 @@ end
 function extractMin(t)
     return reduce(function(x, y)
         return x[2] < y[2] and x or y
-    end, t[1], t)
+    end, t[1], t) [1]
 end
 
 function logMove(senpai, x, y)
