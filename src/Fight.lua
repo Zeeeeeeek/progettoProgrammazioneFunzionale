@@ -8,7 +8,7 @@ function evalFights(senpais)
             local looser = fight(senpai, closeSenpai)
             local winner = looser == senpai and closeSenpai or senpai
             logFight(winner, looser)
-            --Remove both senpais todo: check findIndex, should be handled when returning -1
+            --Remove both senpais
             table.remove(newSenpais, findIndex(newSenpais, looser))
             table.remove(newSenpais, i)
             --Add only the winner with the incremented stat
@@ -34,10 +34,10 @@ function incrementHighestStat(senpai)
     return newSenpai
 end
 
-----Resolves the fight between the two given Senpais. Returns the winner.
+----Resolves the fight between the two given Senpais. Returns the looser.
 function fight(firstSenpai, secondSenpai)
-    local firstSenpaiStats = getSenpaiStats(firstSenpai)
-    local secondSenpaiStats = getSenpaiStats(secondSenpai)
+    local firstSenpaiStats = senpaiStatsSum(firstSenpai)
+    local secondSenpaiStats = senpaiStatsSum(secondSenpai)
     if firstSenpaiStats == secondSenpaiStats then
         return handleWithdraw(firstSenpai, secondSenpai)
     end
@@ -45,7 +45,7 @@ function fight(firstSenpai, secondSenpai)
 end
 
 ----Sum all the stats of the given Senpai.
-function getSenpaiStats(senpai)
+function senpaiStatsSum(senpai)
     return senpai[3] + senpai[4] + senpai[5] + senpai[6]
 end
 
