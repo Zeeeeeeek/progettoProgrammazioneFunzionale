@@ -21,7 +21,7 @@ OneObject = {
     R = { }
 }
 
-require("Lists")
+require("TableUtils")
 require("Fight")
 require("Move")
 require("Objects")

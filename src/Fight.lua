@@ -1,7 +1,7 @@
 ---- Resolves the fights between all the close Senpais.
----- Returns a new list of Senpais with the winners of the fights and the Senpais that didn't fight.
+---- Returns a new table of Senpais with the winners of the fights and the Senpais that didn't fight.
 function evalFights(senpais)
-    local newSenpais = cloneList(senpais)
+    local newSenpais = cloneTable(senpais)
     for i, senpai in ipairs(newSenpais) do
         local closeSenpai = findFirstCloseSenpai(senpai, newSenpais)
         if #closeSenpai ~= 0 then
@@ -21,7 +21,7 @@ end
 ----Returns a new Senpai with the highest stat incremented by 1.
 ----If there are more than one stat with the highest value, the first one is incremented.
 function incrementHighestStat(senpai)
-    local newSenpai = cloneList(senpai)
+    local newSenpai = cloneTable(senpai)
     local highestStat = newSenpai[3]
     local highestStatIndex = 3
     for i = 4, 6 do
@@ -59,7 +59,7 @@ function withdraw(senpai)
     return (((senpai[1] + senpai[2]) * (senpai[1] + senpai[2] - 1)) / 2) + senpai[1] - senpai[2]
 end
 
-----Returns the first Senpai that is close to the given Senpai. Returns an empty list if there is no close Senpai.
+----Returns the first Senpai that is close to the given Senpai. Returns an empty table if there is no close Senpai.
 function findFirstCloseSenpai(senpai, senpais)
     for _, otherSenpai in ipairs(senpais) do
         if senpai ~= otherSenpai and isClose(senpai, otherSenpai) then

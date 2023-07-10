@@ -2,7 +2,7 @@
 ----This function assumes that there is only one object in the same cell.
 ----Returns a new config with the collected objects removed and the senpais' stat incremented.
 function collectObjects(config)
-    local newConfig = cloneList(config)
+    local newConfig = cloneTable(config)
     for i, senpai in ipairs(newConfig["S"]) do
         local objectIndex, objectType = findObjectInSameCell(senpai, newConfig)
         if objectType ~= "N" then
@@ -16,7 +16,7 @@ end
 ----Increments the senpai's stat corresponding to the specified object type.
 ----Returns a new senpai with the stat incremented, or the same senpai if the object type is not valid.
 function incrementSenpaiStat(senpai, objectType)
-    local newSenpai = cloneList(senpai)
+    local newSenpai = cloneTable(senpai)
     local objectTypes = { "U", "C", "G", "R" }
     for k, v in pairs(objectTypes) do
         if v == objectType then

@@ -2,18 +2,18 @@
 ----If there are no objects left, Senpais will move to the closest Senpai.
 ----Returns a new config with the moved Senpais.
 function move(config)
-    local newConfig = cloneList(config)
+    local newConfig = cloneTable(config)
     for senpaiIndex, senpai in ipairs(newConfig["S"]) do
         local objectives = {}
         if objectsArePresents(newConfig) then
             --There are objects left, we try to move Senpais to their closest object
-            objectives = listOfAllObjectsPositions(newConfig)
+            objectives = tableOfAllObjectsPositions(newConfig)
         else
             --There are no objects left, we try to move Senpais to their closest Senpai
             if #newConfig["S"] == 1 then
                 return newConfig --There is only one Senpai left, no need to move it
             end
-            objectives = senpaisListWithoutSenpai(newConfig["S"], senpaiIndex)
+            objectives = senpaisTableWithoutSenpai(newConfig["S"], senpaiIndex)
         end
         objectivesAndDistances = map(
                 function(objective)
@@ -26,9 +26,9 @@ function move(config)
     return newConfig
 end
 
-----Returns a list of all senpais without the senpai at the given index.
-function senpaisListWithoutSenpai(senpais, senpaiIndex)
-    local newSenpais = cloneList(senpais)
+----Returns a table of all senpais without the senpai at the given index.
+function senpaisTableWithoutSenpai(senpais, senpaiIndex)
+    local newSenpais = cloneTable(senpais)
     table.remove(newSenpais, senpaiIndex)
     return newSenpais
 end
@@ -40,9 +40,9 @@ end
 
 ----Moves the Senpai at the given index to the given destination.
 ----If the destination is occupied by another Senpai, the Senpai will not move.
-----Returns a new list of Senpais with the Senpai at the given index moved to the given destination, if possible.
+----Returns a new table of Senpais with the Senpai at the given index moved to the given destination, if possible.
 function moveSenpaiTo(senpais, destination, senpaiIndex)
-    local newSenpais = cloneList(senpais)
+    local newSenpais = cloneTable(senpais)
     local senpaiToMove = newSenpais[senpaiIndex]
     if senpaiToMove[1] == destination[1] and senpaiToMove[2] == destination[2] then
         return newSenpais
@@ -78,7 +78,7 @@ function distanceFrom(from, to)
     return math.abs(from[1] - to[1]) + math.abs(from[2] - to[2])
 end
 
-----Given a table which elements are of the form {{elementX, elementY}, distance} returns a list containing the object with
+----Given a table which elements are of the form {{elementX, elementY}, distance} returns a table containing the object with
 ----the smallest distance and its distance.
 function extractMin(t)
     return reduce(function(x, y)
