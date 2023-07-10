@@ -60,4 +60,4 @@ function printConfig(config)
     end
 end
 
-play(D, N)
+play(D)
