@@ -20,6 +20,7 @@ function incrementSenpaiStat(senpai, objectType)
     local objectTypes = { "U", "C", "G", "R" }
     for k, v in pairs(objectTypes) do
         if v == objectType then
+            logObjectCollected(newSenpai, objectType)
             newSenpai[k + 2] = newSenpai[k + 2] + 1
         end
     end
@@ -44,4 +45,16 @@ end
 ----Returns true if the senpai and the object are in the same cell.
 function sameCell(senpai, object)
     return senpai[1] == object[1] and senpai[2] == object[2]
+end
+
+function logObjectCollected(senpai, objectType)
+    io.write("Senpai at {" .. senpai[1] .. ", " .. senpai[2] .. "} has collected a ")
+    local t = { U = "pot", C = "sword", G = "handkerchief", R = "broom" }
+    for k, v in pairs(t) do
+        if objectType == k then
+            io.write(v)
+            break
+        end
+    end
+    io.write("\n")
 end
