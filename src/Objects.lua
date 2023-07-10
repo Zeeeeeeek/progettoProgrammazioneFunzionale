@@ -48,13 +48,6 @@ function sameCell(senpai, object)
 end
 
 function logObjectCollected(senpai, objectType)
-    io.write("Senpai at {" .. senpai[1] .. ", " .. senpai[2] .. "} collected a ")
     local t = { U = "pot", C = "sword", G = "tissue", R = "broom" }
-    for k, v in pairs(t) do
-        if objectType == k then
-            io.write(v)
-            break
-        end
-    end
-    io.write("\n")
+    print("Senpai at {" .. senpai[1] .. ", " .. senpai[2] .. "} collected a " .. t[objectType])
 end
