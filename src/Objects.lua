@@ -17,13 +17,8 @@ end
 ----Returns a new senpai with the stat incremented, or the same senpai if the object type is not valid.
 function incrementSenpaiStat(senpai, objectType)
     local newSenpai = cloneTable(senpai)
-    local objectTypes = { "U", "C", "G", "R" }
-    for k, v in pairs(objectTypes) do
-        if v == objectType then
-            logObjectCollected(newSenpai, objectType)
-            newSenpai[k + 2] = newSenpai[k + 2] + 1
-        end
-    end
+    local objectTypes = { U = 3, C = 4, G = 5, R = 6 }
+    newSenpai[objectTypes[objectType]] = newSenpai[objectTypes[objectType]] + 1
     return newSenpai
 end
 
