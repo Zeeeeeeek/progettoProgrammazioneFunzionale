@@ -49,7 +49,7 @@ end
 
 function logObjectCollected(senpai, objectType)
     io.write("Senpai at {" .. senpai[1] .. ", " .. senpai[2] .. "} collected a ")
-    local t = { U = "pot", C = "sword", G = "handkerchief", R = "broom" }
+    local t = { U = "pot", C = "sword", G = "tissue", R = "broom" }
     for k, v in pairs(t) do
         if objectType == k then
             io.write(v)
