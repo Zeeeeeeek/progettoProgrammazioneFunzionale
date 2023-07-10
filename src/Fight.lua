@@ -7,6 +7,7 @@ function evalFights(senpais)
         if #closeSenpai ~= 0 then
             local looser = fight(senpai, closeSenpai)
             local winner = looser == senpai and closeSenpai or senpai
+            logFight(winner, looser)
             --Remove both senpais todo: check findIndex
             table.remove(newSenpais, findIndex(newSenpais, looser))
             table.remove(newSenpais, i)
@@ -72,4 +73,8 @@ end
 ----Two Senpais are close if the distance between them is less or equal to 1.
 function isClose(firstSenpai, secondSenpai)
     return math.abs(firstSenpai[1] - secondSenpai[1]) <= 1 and math.abs(firstSenpai[2] - secondSenpai[2]) <= 1
+end
+
+function logFight(winner, looser)
+    print("Senpai at {" .. winner[1] .. ", " .. winner[2] .. "} defeated senpai at {" .. looser[1] .. ", " .. looser[2] .. "}")
 end
