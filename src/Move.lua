@@ -47,19 +47,17 @@ function moveSenpaiTo(senpais, destination, senpaiIndex)
     if senpaiToMove[1] == destination[1] and senpaiToMove[2] == destination[2] then
         return newSenpais
     end
-    --We shall now check if the destination cell is already occupied by another Senpai
-    if isOccupiedBySenpai(newSenpais, destination) then
-        return newSenpais --We do not move the senpai if the destination cell is occupied by another Senpai
-    end
     local newX, newY
     if destination[1] ~= senpaiToMove[1] then
         newX = destination[1] > senpaiToMove[1] and senpaiToMove[1] + 1 or senpaiToMove[1] - 1
         newY = senpaiToMove[2]
     else
-        if destination[2] ~= senpaiToMove[2] then
-            newX = senpaiToMove[1]
-            newY = destination[2] > senpaiToMove[2] and senpaiToMove[2] + 1 or senpaiToMove[2] - 1
-        end
+        newX = senpaiToMove[1]
+        newY = destination[2] > senpaiToMove[2] and senpaiToMove[2] + 1 or senpaiToMove[2] - 1
+    end
+    --We shall now check if the destination cell is already occupied by another Senpai
+    if isOccupiedBySenpai(newSenpais, { newX, newY }) then
+        return newSenpais --We do not move the senpai if the destination cell is occupied by another Senpai
     end
     logMove(senpaiToMove, newX, newY)
     newSenpais[senpaiIndex] = { newX, newY, senpaiToMove[3], senpaiToMove[4], senpaiToMove[5], senpaiToMove[6] }
@@ -83,7 +81,7 @@ end
 function extractMin(t)
     return reduce(function(x, y)
         return x[2] < y[2] and x or y
-    end, t[1], t) [1]
+    end, t[1], t)[1]
 end
 
 function logMove(senpai, x, y)

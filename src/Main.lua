@@ -20,7 +20,7 @@ OneObject = {
     G = { { 3, 8 } },
     R = { }
 }
-
+require("Input")
 require("TableUtils")
 require("Fight")
 require("Move")
@@ -49,15 +49,18 @@ function printConfig(config)
     local keys = {"S", "U", "C", "G", "R"}
     for _, key in ipairs(keys) do
         io.write(key .. " = { ")
-        for _, value in ipairs(config[key]) do
+        for j, value in ipairs(config[key]) do
             io.write("{ ")
             for i, v in ipairs(value) do
                 io.write(v .. (i < #value and ", " or ""))
             end
             io.write(" }")
+            if j < #config[key] then
+                io.write(", ")
+            end
         end
         print(" }")
     end
 end
 
-play(D)
+play(configs[1])
