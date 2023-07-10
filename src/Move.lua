@@ -78,7 +78,7 @@ function distanceFrom(from, to)
     return math.abs(from[1] - to[1]) + math.abs(from[2] - to[2])
 end
 
-----Give a table which elements are of the form {{elementX, elementY}, distance} returns a list containing the object with
+----Given a table which elements are of the form {{elementX, elementY}, distance} returns a list containing the object with
 ----the smallest distance and its distance.
 function extractMin(t)
     return reduce(function(x, y)
