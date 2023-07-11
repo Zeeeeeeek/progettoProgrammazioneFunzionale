@@ -17,11 +17,7 @@ function map (func, tbl)
 end
 
 function reduce (func, c, tbl)
-    if #tbl == 0 then
-        return c
-    else
-        return reduce(func, func(table.remove(tbl, 1), c), tbl)
-    end
+    return #tbl == 0 and c or reduce(func, func(table.remove(tbl, 1), c), tbl)
 end
 
 ----Clone the given table and all its subtables
