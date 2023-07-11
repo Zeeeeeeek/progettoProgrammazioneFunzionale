@@ -1,3 +1,13 @@
+function filter (tbl, func)
+    local r = {}
+    for _, v in ipairs(tbl) do
+        if func(v) then
+            table.insert(r, v)
+        end
+    end
+    return r
+end
+
 function map (func, tbl)
     local newtbl = {}
     for i, v in pairs(tbl) do
