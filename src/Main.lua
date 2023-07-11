@@ -59,9 +59,9 @@ function printConfig(config)
 end
 
 function runAll(configs)
-    for _, config in ipairs(configs) do
-        run(config["D"], config["N"])
-    end
+    return map(function(config)
+        return run(config["D"], config["N"])
+    end, configs)
 end
 
 runAll(loadConfig())
