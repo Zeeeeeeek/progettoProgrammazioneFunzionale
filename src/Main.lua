@@ -63,4 +63,6 @@ function printConfig(config)
     end
 end
 
-play(configs[1])
+for _, c in ipairs(configs) do
+    play(c)
+end
