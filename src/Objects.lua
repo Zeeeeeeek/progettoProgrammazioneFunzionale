@@ -7,6 +7,7 @@ function collectObjects(config)
         local objectIndex, objectType = findObjectInSameCell(senpai, newConfig)
         if objectType ~= "N" then
             table.remove(newConfig[objectType], objectIndex)
+            logObjectCollected(senpai, objectType)
             newConfig["S"][i] = incrementSenpaiStat(senpai, objectType)
         end
     end
