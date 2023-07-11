@@ -49,13 +49,15 @@ end
 
 ----Returns the index of the first element of the table that is equal to the given element, -1 otherwise.
 function findIndex(tbl, elem)
-    return findIndexThatSatisfies(tbl, function (x) return x == elem end)
+    return findIndexThatSatisfies(tbl, function(x)
+        return x == elem
+    end)
 end
 
 ----Returns a table containing all the objects in the given config.
 function tableOfAllObjectsPositions(config)
     local tbl = {}
-    local objectsKeys = {"U", "C", "G", "R"}
+    local objectsKeys = { "U", "C", "G", "R" }
     for _, key in ipairs(objectsKeys) do
         for _, object in ipairs(config[key]) do
             table.insert(tbl, object)
