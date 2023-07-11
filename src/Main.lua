@@ -80,8 +80,6 @@ function printConfig(config)
     end
 end
 
---for _, c in ipairs(configs) do
---    run(c)
---end
-
-run(D, N)
+for _, c in ipairs(configs) do
+    run(c.D, c.N)
+end
