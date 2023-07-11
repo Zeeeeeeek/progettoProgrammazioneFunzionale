@@ -64,4 +64,14 @@ function runAll(configs)
     end, configs)
 end
 
-runAll(loadConfig())
+--runAll(loadConfig())
+N = 10
+D = {
+    S = { { 1, 1, 0, 0, 0, 0 }, { 3, 8, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 9, 6, 0, 0, 0, 0 } },
+    U = { { 1, 1 }, { 1, 1 } },
+    C = { { 5, 1 }, { 9, 9 } },
+    G = { { 4, 3 } },
+    R = { { 8, 7 }, { 6, 1 }, { 4, 5 } }
+}
+
+run(D, N)
