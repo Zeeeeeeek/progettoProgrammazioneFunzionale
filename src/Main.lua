@@ -58,6 +58,10 @@ function printConfig(config)
     end
 end
 
-for _, c in ipairs(configs) do
-    run(c.D, c.N)
+function runAll(configs)
+    for _, config in ipairs(configs) do
+        run(config["D"], config["N"])
+    end
 end
+
+runAll(loadConfig())
