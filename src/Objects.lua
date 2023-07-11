@@ -1,5 +1,6 @@
 ----Collects all objects in the same cell as a senpai and increments the senpai's corresponding stat.
-----This function assumes that there is only one object in the same cell.
+----This function assumes that there is only one object in the same cell. If there are multiple objects,
+----only the first one will be collected.
 ----Returns a new config with the collected objects removed and the senpais' stat incremented.
 function collectObjects(config)
     local newConfig = cloneTable(config)
