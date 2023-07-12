@@ -2,15 +2,17 @@
 ---- Returns a new table of Senpais with the winners of the fights and the Senpais that didn't fight.
 function evalFights(senpais)
     local newSenpais = cloneTable(senpais)
-    for _, senpai in ipairs(newSenpais) do
-        local closeSenpai = findFirstCloseSenpai(senpai, newSenpais)
-        if #closeSenpai ~= 0 then
-            local looser = fight(senpai, closeSenpai)
-            local winner = looser == senpai and closeSenpai or senpai
+    for senpaiIndex, senpai in ipairs(newSenpais) do
+        local closeSenpaiIndex = findFirstCloseSenpaiIndex(senpai, newSenpais)
+        if closeSenpaiIndex ~= -1 then
+            local closeSenpai = newSenpais[closeSenpaiIndex]
+            local result = fight(senpai, closeSenpai)
+            local winner, looser = result[1], result[2]
             logFight(winner, looser)
-            --Remove both senpais
-            table.remove(newSenpais, findIndex(newSenpais, looser))
-            newSenpais[findIndex(newSenpais, winner)] = incrementHighestStat(winner)
+            local winnerIndex = winner == senpai and senpaiIndex or closeSenpaiIndex
+            local looserIndex = winnerIndex == senpaiIndex and closeSenpaiIndex or senpaiIndex
+            newSenpais[winnerIndex] = incrementHighestStat(winner)
+            table.remove(newSenpais, looserIndex)
         end
     end
     return newSenpais
@@ -32,14 +34,14 @@ function incrementHighestStat(senpai)
     return newSenpai
 end
 
-----Resolves the fight between the two given Senpais. Returns the looser.
+----Resolves the fight between the two given Senpais. Returns a table containing the winner and the looser.
 function fight(firstSenpai, secondSenpai)
     local firstSenpaiStats = senpaiStatsSum(firstSenpai)
     local secondSenpaiStats = senpaiStatsSum(secondSenpai)
     if firstSenpaiStats == secondSenpaiStats then
         return handleWithdraw(firstSenpai, secondSenpai)
     end
-    return firstSenpaiStats > secondSenpaiStats and secondSenpai or firstSenpai
+    return firstSenpaiStats > secondSenpaiStats and { firstSenpai, secondSenpai } or { secondSenpai, firstSenpai }
 end
 
 ----Sum all the stats of the given Senpai.
@@ -49,7 +51,7 @@ end
 
 ----Resolves fight in a withdraw condition
 function handleWithdraw(firstSenpai, secondSenpai)
-    return withdraw(firstSenpai) > withdraw(secondSenpai) and secondSenpai or firstSenpai
+    return withdraw(firstSenpai) > withdraw(secondSenpai) and { firstSenpai, secondSenpai } or { secondSenpai, firstSenpai }
 end
 
 ----Withdraw formula.
@@ -57,14 +59,15 @@ function withdraw(senpai)
     return (((senpai[1] + senpai[2]) * (senpai[1] + senpai[2] - 1)) / 2) + senpai[1] - senpai[2]
 end
 
-----Returns the first Senpai that is close to the given Senpai. Returns an empty table if there is no close Senpai.
-function findFirstCloseSenpai(senpai, senpais)
-    for _, otherSenpai in ipairs(senpais) do
+----Returns the index of the first Senpai that is close to the given Senpai.
+----Returns -1 if there is no close Senpai.
+function findFirstCloseSenpaiIndex(senpai, senpais)
+    for i, otherSenpai in ipairs(senpais) do
         if senpai ~= otherSenpai and isClose(senpai, otherSenpai) then
-            return otherSenpai
+            return i
         end
     end
-    return { }
+    return -1
 end
 
 ----Returns true if the two given Senpais are close, false otherwise.
