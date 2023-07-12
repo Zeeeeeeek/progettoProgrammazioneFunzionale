@@ -19,6 +19,9 @@ end
 function incrementSenpaiStat(senpai, objectType)
     local newSenpai = cloneTable(senpai)
     local objectTypes = { U = 3, C = 4, G = 5, R = 6 }
+    if objectTypes[objectType] == nil then
+        return newSenpai
+    end
     newSenpai[objectTypes[objectType]] = newSenpai[objectTypes[objectType]] + 1
     return newSenpai
 end
