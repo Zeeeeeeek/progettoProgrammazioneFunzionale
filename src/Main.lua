@@ -11,9 +11,11 @@ function run(config, N)
         return config
     end
     local function play(conf)
+        if isFinalConfig(conf) then
+            return conf
+        end
         printConfig(conf)
-        print("--------------------------------------------------")
-        return isFinalConfig(conf) and conf or play(gong(conf))
+        return play(gong(conf))
     end
     return play(config)
 end
