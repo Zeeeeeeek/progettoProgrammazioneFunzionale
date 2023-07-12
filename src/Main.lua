@@ -24,6 +24,11 @@ function isValidConfig(config, N)
     local function isOutOfBounds(position)
         return (position[1] < 0 or position[1] >= N) or (position[2] < 0 or position[2] >= N)
     end
+    for _, senpai in ipairs(config["S"]) do
+        if senpaiStatsSum(senpai) > 0 then
+            return false
+        end
+    end
     return #config["S"] > 0 and (#filter(map(function(e)
         return { e[1], e[2] }
     end, config["S"]), isOutOfBounds) +
@@ -76,7 +81,7 @@ end
 --printAll(runAll(loadConfig()))
 N = 10
 D = {
-    S = { { 1, 1, 0, 0, 0, 0 }, { 3, 8, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 9, 6, 0, 0, 0, 0 } },
+    S = { { 1, 1, 0, 0, 1, 0 }, { 3, 8, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 9, 6, 0, 0, 0, 0 } },
     U = { { 1, 1 }, { 1, 1 } },
     C = { { 5, 1 }, { 9, 9 } },
     G = { { 4, 3 } },
@@ -89,7 +94,7 @@ D = {
 E = 10
 ERRORCONF = {
     S = { { 1, 1, 0, 0, 0, 0 }, { 3, 8, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 9, 6, 0, 0, 0, 0 } },
-    U = { { 1, 1 }, { 1, 1 } },
+    U = { { 2, 1 }, { 1, 1 } },
     C = { { 5, 1 }, { 9, 9 } },
     G = { { 4, 3 } },
     R = { { 8, 7 }, { 6, 1 }, { 4, 5 } }
