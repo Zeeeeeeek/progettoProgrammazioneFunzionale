@@ -1,15 +1,14 @@
 ----Collects all objects in the same cell as a senpai and increments the senpai's corresponding stat.
-----This function assumes that there is only one object in the same cell. If there are multiple objects,
-----only the first one will be collected.
 ----Returns a new config with the collected objects removed and the senpais' stat incremented.
 function collectObjects(config)
     local newConfig = cloneTable(config)
-    for i, senpai in ipairs(newConfig["S"]) do
-        local objectIndex, objectType = findObjectInSameCell(senpai, newConfig)
-        if objectType ~= "N" then
-            table.remove(newConfig[objectType], objectIndex)
-            logObjectCollected(senpai, objectType)
-            newConfig["S"][i] = incrementSenpaiStat(senpai, objectType)
+    for i, _ in ipairs(newConfig["S"]) do
+        local objects = findObjectsInSameCell(newConfig["S"][i], newConfig)
+        for j = 1, #objects do
+            k = objects[#objects - j + 1]
+            table.remove(newConfig[k[2]], k[1])
+            logObjectCollected(newConfig["S"][i], k[2])
+            newConfig["S"][i] = incrementSenpaiStat(newConfig["S"][i], k[2])
         end
     end
     return newConfig
@@ -24,19 +23,20 @@ function incrementSenpaiStat(senpai, objectType)
     return newSenpai
 end
 
-----Returns the index and the type of the first object found in the same cell as the senpai.
-----Returns -1 and "N" if no object is found.
-function findObjectInSameCell(senpai, config)
+----Returns a table containing the index and the type of the objects found in the same cell as the senpai.
+----Returns an empty table if no object is found.
+function findObjectsInSameCell(senpai, config)
     local objectTypes = { "U", "C", "G", "R" }
+    local result = {}
     for _, objectType in ipairs(objectTypes) do
         local objects = config[objectType]
         for i, object in ipairs(objects) do
             if sameCell(senpai, object) then
-                return i, objectType
+                table.insert(result, { i, objectType })
             end
         end
     end
-    return -1, "N"
+    return result
 end
 
 ----Returns true if the senpai and the object are in the same cell.
