@@ -100,4 +100,16 @@ ERRORCONF = {
     R = { { 8, 7 }, { 6, 1 }, { 4, 5 } }
 }
 
-printConfig(run(ERRORCONF, E))
+--printConfig(run(ERRORCONF, E))
+
+
+T = 10
+TESTCONFIG = {
+    S = { { 1, 1, 0, 0, 0, 0 } , { 1, 2, 0, 0, 0, 0 }, { 2, 2, 0, 0, 0, 0 }},
+    U = { },
+    C = { },
+    G = { },
+    R = { }
+}
+
+printConfig(run(TESTCONFIG, T))
