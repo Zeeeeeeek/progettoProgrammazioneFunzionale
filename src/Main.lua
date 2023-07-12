@@ -58,6 +58,7 @@ function printConfig(config)
         end
         print(" }")
     end
+    print("-------------------------------------------------------")
 end
 
 function runAll(configs)
@@ -66,7 +67,13 @@ function runAll(configs)
     end, configs)
 end
 
---runAll(loadConfig())
+function printAll(configs)
+    for _, config in ipairs(configs) do
+        printConfig(config)
+    end
+end
+
+printAll(runAll(loadConfig()))
 N = 10
 D = {
     S = { { 1, 1, 0, 0, 0, 0 }, { 3, 8, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 9, 6, 0, 0, 0, 0 } },
@@ -76,4 +83,4 @@ D = {
     R = { { 8, 7 }, { 6, 1 }, { 4, 5 } }
 }
 
-run(D, N)
+--printConfig(run(D, N))
