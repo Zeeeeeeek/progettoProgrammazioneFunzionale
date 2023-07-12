@@ -11,11 +11,8 @@ function run(config, N)
         return config
     end
     local function play(conf)
-        if isFinalConfig(conf) then
-            return conf
-        end
         printConfig(conf)
-        return play(gong(conf))
+        return isFinalConfig(conf) and conf or play(gong(conf))
     end
     return play(config)
 end
@@ -72,13 +69,8 @@ function runAll(configs)
     end, configs)
 end
 
-function printAll(configs)
-    for _, config in ipairs(configs) do
-        printConfig(config)
-    end
-end
 
---printAll(runAll(loadConfig()))
+runAll(loadConfig())
 N = 10
 D = {
     S = { { 1, 1, 0, 0, 1, 0 }, { 3, 8, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 9, 6, 0, 0, 0, 0 } },
@@ -88,7 +80,7 @@ D = {
     R = { { 8, 7 }, { 6, 1 }, { 4, 5 } }
 }
 
---printConfig(run(D, N))
+--run(D, N)
 
 
 E = 10
@@ -100,7 +92,7 @@ ERRORCONF = {
     R = { { 8, 7 }, { 6, 1 }, { 4, 5 } }
 }
 
---printConfig(run(ERRORCONF, E))
+--run(ERRORCONF, E)
 
 
 T = 10
@@ -112,4 +104,4 @@ TESTCONFIG = {
     R = { }
 }
 
-printConfig(run(TESTCONFIG, T))
+--run(TESTCONFIG, T)
