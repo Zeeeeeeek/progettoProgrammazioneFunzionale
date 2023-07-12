@@ -2,7 +2,7 @@
 ---- Returns a new table of Senpais with the winners of the fights and the Senpais that didn't fight.
 function evalFights(senpais)
     local newSenpais = cloneTable(senpais)
-    for i, senpai in ipairs(newSenpais) do
+    for _, senpai in ipairs(newSenpais) do
         local closeSenpai = findFirstCloseSenpai(senpai, newSenpais)
         if #closeSenpai ~= 0 then
             local looser = fight(senpai, closeSenpai)
@@ -10,9 +10,7 @@ function evalFights(senpais)
             logFight(winner, looser)
             --Remove both senpais
             table.remove(newSenpais, findIndex(newSenpais, looser))
-            table.remove(newSenpais, i)
-            --Add only the winner with the incremented stat
-            table.insert(newSenpais, incrementHighestStat(winner))
+            newSenpais[findIndex(newSenpais, winner)] = incrementHighestStat(winner)
         end
     end
     return newSenpais
