@@ -5,6 +5,8 @@ require("Move")
 require("Objects")
 
 ----Play the game until the config is final.
+----Returns the final config.
+----If the config is invalid, returns the config.
 function run(config, N)
     if not isValidConfig(config, N) then
         print("Invalid config")
@@ -17,6 +19,10 @@ function run(config, N)
     return play(config)
 end
 
+----Returns true if the config is valid. A config is valid if:
+----    - There is at least one Senpai.
+----    - There is no Senpai with a stat sum greater than 0.
+----    - There is no object or Senpai out of bounds.
 function isValidConfig(config, N)
     local function isOutOfBounds(position)
         return (position[1] < 0 or position[1] >= N) or (position[2] < 0 or position[2] >= N)
