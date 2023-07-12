@@ -73,7 +73,7 @@ function printAll(configs)
     end
 end
 
-printAll(runAll(loadConfig()))
+--printAll(runAll(loadConfig()))
 N = 10
 D = {
     S = { { 1, 1, 0, 0, 0, 0 }, { 3, 8, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 9, 6, 0, 0, 0, 0 } },
@@ -84,3 +84,15 @@ D = {
 }
 
 --printConfig(run(D, N))
+
+
+E = 10
+ERRORCONF = {
+    S = { { 1, 1, 0, 0, 0, 0 }, { 3, 8, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 9, 6, 0, 0, 0, 0 } },
+    U = { { 1, 1 }, { 1, 1 } },
+    C = { { 5, 1 }, { 9, 9 } },
+    G = { { 4, 3 } },
+    R = { { 8, 7 }, { 6, 1 }, { 4, 5 } }
+}
+
+printConfig(run(ERRORCONF, E))
