@@ -43,13 +43,6 @@ function findIndexThatSatisfies(tbl, predicate)
     return -1
 end
 
-----Returns the index of the first element of the table that is equal to the given element, -1 otherwise.
-function findIndex(tbl, elem)
-    return findIndexThatSatisfies(tbl, function(x)
-        return x == elem
-    end)
-end
-
 ----Returns a table containing all the objects in the given config.
 function tableOfAllObjectsPositions(config)
     local tbl = {}
