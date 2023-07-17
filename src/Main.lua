@@ -34,7 +34,7 @@ function isValidConfig(config, N)
     end, 0, map(senpaiStatsSum, config["S"])) == 0 and #config["S"] > 0 and (#filter(map(function(e)
         return { e[1], e[2] }
     end, config["S"]), isOutOfBounds) +
-            #filter(tableOfAllObjectsPositions(config), isOutOfBounds)) <= 0
+            #filter(tableOfAllObjectsPositions(config), isOutOfBounds)) == 0
 end
 
 ----A config is final if there is only one Senpai left and there are no objects left.
