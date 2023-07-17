@@ -12,8 +12,11 @@ function run(config, N)
         return config
     end
     local function play(conf)
+        if isFinalConfig(conf) then
+            return conf
+        end
         printConfig(conf)
-        return isFinalConfig(conf) and conf or play(gong(conf))
+        return play(gong(conf))
     end
     return play(config)
 end
@@ -101,4 +104,4 @@ D2 = {
 		R = {{6, 9}}
 }
 
-run(ERRORCONF, N2)
+printConfig(run(D, N))
