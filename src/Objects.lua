@@ -15,7 +15,7 @@ function collectObjects(config)
 end
 
 ----Increments the senpai's stat corresponding to the specified object type.
-----Returns a new senpai with the stat incremented, or the same senpai if the object type is not valid.
+----Returns a new senpai with the stat incremented.
 function incrementSenpaiStat(senpai, objectType)
     local newSenpai = cloneTable(senpai)
     local objectTypes = { U = 3, C = 4, G = 5, R = 6 }
