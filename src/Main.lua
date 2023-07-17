@@ -1,4 +1,3 @@
-require("Input")
 require("TableUtils")
 require("Fight")
 require("Move")
@@ -66,13 +65,6 @@ function printConfig(config)
     print("-------------------------------------------------------")
 end
 
-function runAll(configs)
-    return map(function(config)
-        return run(config["D"], config["N"])
-    end, configs)
-end
-
---runAll(loadConfig())
 N = 10
 D = {
     S = { { 1, 1, 0, 0, 0, 0 }, { 3, 8, 0, 0, 0, 0 }, { 4, 1, 0, 0, 0, 0 }, { 9, 6, 0, 0, 0, 0 } },
